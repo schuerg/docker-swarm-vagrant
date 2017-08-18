@@ -1,0 +1,15 @@
+---
+
+# Ensure all prerequisites are met to run ansible playbooks
+- hosts: all
+  become: true
+  gather_facts: false
+  roles:
+    - schuerg.prerequisites
+
+# Perform the actual provisioning
+- hosts: all
+  become: true
+  roles:
+    - geerlingguy.docker
+    - common

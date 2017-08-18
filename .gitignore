@@ -5,3 +5,4 @@ ubuntu*-cloudimg-console.log
 # Ansible
 ansible/roles/schuerg.*/
 ansible/roles/geerlingguy.*/
+ansible/playbook.retry

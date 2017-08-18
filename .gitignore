@@ -1,2 +1,7 @@
+# Vagrant
 .vagrant/
-*.log
+ubuntu*-cloudimg-console.log
+
+# Ansible
+ansible/roles/schuerg.*/
+ansible/roles/geerlingguy.*/

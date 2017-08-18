@@ -22,6 +22,9 @@ __base="$(basename ${__file} .sh)"
 cd ${__dir}
 
 vagrant halt --force
+vagrant destroy --force
 
 find . -type f -name "*.log" -exec rm -f {} \;
-rm -rf .vagrant
+rm -rf ./.vagrant
+rm -rf ./ansible/roles/schuerg.prerequisites
+rm -rf ./ansible/roles/geerlingguy.docker

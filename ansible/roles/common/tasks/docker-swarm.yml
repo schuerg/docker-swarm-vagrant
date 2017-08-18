@@ -1,0 +1,54 @@
+---
+# Configure Docker swarm
+
+- name: Check Swarm mode
+  shell: docker info
+  changed_when: False
+  register: docker_info
+
+- name: Init Docker Swarm
+  shell: docker swarm init --advertise-addr {{ docker_swarm_addr }}
+  when:
+    - "docker_info.stdout.find('Swarm: active') == -1"
+    - "'swarm-leader' in group_names"
+
+- name: Get the worker join-token
+  shell: docker swarm join-token -q worker
+  register: docker_worker_token
+  delegate_to: "{{ groups['swarm-manager'][0] }}"
+  when: "'swarm-worker' in group_names"
+
+- name: Get the manager join-token
+  shell: docker swarm join-token -q manager
+  register: docker_manager_token
+  delegate_to: "{{ groups['swarm-manager'][0] }}"
+  when: "'swarm-manager' in group_names"
+
+- name: Join the Swarm as a worker
+  shell: docker swarm join
+        --token "{{ docker_worker_token.stdout }}"
+        {{ docker_swarm_addr }}:{{ docker_swarm_port }}
+  when:
+    - "docker_info.stdout.find('Swarm: active') == -1"
+    - "docker_info.stdout.find('Swarm: pending') == -1"
+    - "'swarm-worker' in group_names"
+
+- name: Join the Swarm as a manager
+  shell: docker swarm join
+        --token "{{ docker_manager_token.stdout }}"
+        {{ docker_swarm_addr }}:{{ docker_swarm_port }}
+  when:
+   - "docker_info.stdout.find('Swarm: active') == -1"
+   - "docker_info.stdout.find('Swarm: pending') == -1"
+   - "'swarm-manager' in group_names"
+   - "'swarm-leader' not in group_names"
+
+- name: Deploy Portainer on leader swarm manager as a service
+  shell: docker service create
+          --name portainer
+          --publish 9000:9000
+          --constraint 'node.role == manager'
+          --mount type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock
+          portainer/portainer
+          -H unix:///var/run/docker.sock
+  when: "'swarm-leader' in group_names"

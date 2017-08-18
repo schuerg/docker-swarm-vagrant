@@ -1,2 +1,5 @@
 ---
 # defaults file for common
+
+docker_swarm_addr: 10.0.10.1
+docker_swarm_port: 2377

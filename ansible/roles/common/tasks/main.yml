@@ -1,8 +1,5 @@
 ---
-# These tasks are only for debugging purpose
-#
-# verbosity:  A number that controls when the debug is run,
-#             if you set to 3 it will only run debug when -vvv or above
+# Main task file
 
 - name: Update all packages to the latest version
   apt:
@@ -10,24 +7,19 @@
     cache_valid_time: 3600
     upgrade: dist
 
-- name: DEBUG - whoami
-  shell: whoami
-  register: whoami
-- debug: var=whoami.stdout verbosity=1
+- name: Ensure mDNS/Avahi is installed
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - avahi-daemon
+    - libnss-mdns
 
-- name: DEBUG - pwd
-  shell: pwd
-  register: pwd
-- debug: var=pwd.stdout verbosity=1
+- name: Ensure avahi-daemon is running and enabled at boot
+  systemd:
+    name: avahi-daemon
+    state: started
+    enabled: True
 
-- name: DEBUG - uptime
-  shell: uptime
-  register: uptime
-- debug: var=uptime.stdout verbosity=1
-
-- name: Display all variables/facts known for a host
-  debug:
-    var: hostvars[inventory_hostname]
-    verbosity: 4
-
+- include: debug.yml
 - include: docker-swarm.yml

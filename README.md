@@ -24,7 +24,7 @@ To SSH into a node, use `vagrant ssh`. E.g. `vagrant ssh manager-1`
 There is also [Avahi/mDNS](http://avahi.org/) installed on every VM. Therefore hostnames like `manager-{i}.local` will be resolved to the correct IPs of the VM and can be used by the host system, if avahi is also installed on the host.
 
 The swarm manager `manager-1` is the leading manager of the swarm cluster.
-On this node is also [Portainer](https://portainer.io/), a management UI for Docker, installed. It can be reached at `http://manager-1.local:9000/` through a webbroser.
+On this node is also [Portainer](https://portainer.io/), a management UI for Docker, installed. It can be reached at http://manager-1.local:9000/ through a webbroser.
 Portainer is also capable of managing the Docker swarm as a whole, instead of only the Docker engine on manager-1.
 
 ## Feedback

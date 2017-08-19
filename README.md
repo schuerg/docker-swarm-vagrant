@@ -5,7 +5,7 @@ This project aims to be a simple and fast solution to create and configure a who
 
 ### How it works
 
-[VirtualBox](https://www.virtualbox.org/), [Vagrant](https://www.vagrantup.com/) and [Ansible](https://www.ansible.com/) have to be installed before you can create the Docker swarm cluster.
+[VirtualBox](https://www.virtualbox.org/), [Vagrant](https://www.vagrantup.com/) and [Ansible](https://www.ansible.com/) have to be installed before you can create the Docker swarm cluster
 
 After installing the previous mentioned dependencies, the cluster can be started as follows.
 ```bash
@@ -21,7 +21,7 @@ The Managers have IPs like `10.0.10.{i}` and hostnames like `manager-{i}` (where
 
 To SSH into a node, use `vagrant ssh`. E.g. `vagrant ssh manager-1`
 
-There is Avahi/mDNS installed on every VM. Therefore hostnames like `manager-{i}.local` will be resolved to the correct IPs of the VM and can be used by the host system.
+There is also [Avahi/mDNS](http://avahi.org/) installed on every VM. Therefore hostnames like `manager-{i}.local` will be resolved to the correct IPs of the VM and can be used by the host system, if avahi is also installed on the host.
 
 The swarm manager `manager-1` is the leading manager of the swarm cluster.
 On this node is also [Portainer](https://portainer.io/), a management UI for Docker, installed. It can be reached at `http://manager-1.local:9000/` through a webbroser.
@@ -31,4 +31,5 @@ Portainer is also capable of managing the Docker swarm as a whole, instead of on
 Bug reports, feature requests, pull requests and feedback in general is always welcome!
 
 ## License
-[MIT](LICENSE)
+[MIT](LICENSE)  
+Copyright &copy; 2017 Simon Schürg

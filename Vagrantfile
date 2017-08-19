@@ -52,7 +52,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.playbook = "ansible/playbook.yml"
     # ansible.inventory_path = "ansible/inventory"
     ansible.galaxy_roles_path = "ansible/roles"
-    # ansible.galaxy_role_file = "ansible/requirements.yml"
+    ansible.galaxy_role_file = "ansible/requirements.yml"
     # ansible.vault_password_file = "ansible/.vault_pass"
     ansible.verbose = "v"
 

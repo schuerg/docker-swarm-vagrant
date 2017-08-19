@@ -14,12 +14,14 @@
 
 - name: Get the worker join-token
   shell: docker swarm join-token -q worker
+  changed_when: False
   register: docker_worker_token
   delegate_to: "{{ groups['swarm-manager'][0] }}"
   when: "'swarm-worker' in group_names"
 
 - name: Get the manager join-token
   shell: docker swarm join-token -q manager
+  changed_when: False
   register: docker_manager_token
   delegate_to: "{{ groups['swarm-manager'][0] }}"
   when: "'swarm-manager' in group_names"

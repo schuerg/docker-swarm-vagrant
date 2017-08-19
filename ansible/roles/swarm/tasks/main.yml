@@ -21,5 +21,4 @@
     state: started
     enabled: True
 
-- include: debug.yml
 - include: docker-swarm.yml

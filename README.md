@@ -1,5 +1,7 @@
 # docker-swarm-vagrant
 
+*Firing up a docker swarm cluster with one command!*
+
 This project aims to be a simple and fast solution to create and configure a whole [Docker Swarm cluster](https://docs.docker.com/engine/swarm/). without user interaction as several virtual machines.
 
 
